@@ -9,6 +9,17 @@ namespace Decomposer.Domain.Creator
 {
     public abstract class NumberFactoryMethod
     {
-        protected abstract ResultNumberDecomposed ReturnDecomposedNumber(NumberToDecompose numberToDivider);
+        public ResultNumberDecomposed ReturnResult(NumberToDecompose numberToDecompose)
+        {
+            return ReturnDecomposedNumber(numberToDecompose);
+        }
+
+        public NumberToDecompose MakeDecomposeNumber(int numberA)
+        {
+            return CreateNumberToDecompose(numberA);
+        }
+
+        protected abstract NumberToDecompose CreateNumberToDecompose(int numberA);
+        protected abstract ResultNumberDecomposed ReturnDecomposedNumber(NumberToDecompose numberToDecompose);
     }
 }

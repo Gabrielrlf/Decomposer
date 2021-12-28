@@ -18,10 +18,10 @@ namespace Decomposer.Api.Controllers
         public NumberController(IDecomposeService dividerService) => _dividerService = dividerService;
         
 
-        [HttpGet]
+        /*[HttpGet]
         public IActionResult<> Get()
         {
 
-        }
+        }*/
     }
 }

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Decomposer.Domain.Entities
+namespace Decomposer.Services.Interfaces
 {
-    public class BaseEntity
+    public interface IDecomposeConsoleService 
     {
-        public int NumberA { get; set; }
+        int WriterConsoleAndReturnNumber();
     }
 }

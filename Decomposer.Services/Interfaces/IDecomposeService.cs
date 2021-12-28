@@ -10,6 +10,6 @@ namespace Decomposer.Services.Interfaces
     public interface IDecomposeService
     {
         bool IsCousinPrime(int numberA);
-        int DecompouseNumber(NumberToDecompose numberToDivider);
+        List<int> DecompouseNumber(NumberToDecompose numberToDivider);
     }
 }
