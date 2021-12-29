@@ -14,13 +14,17 @@ namespace Decomposer.Domain.Factory
         {
             return new NumberToDecompose()
             {
-                NumberA = numberA
+                EntryNumber = numberA
             };
         }
 
         protected override ResultNumberDecomposed ReturnDecomposedNumber(NumberToDecompose numberToDecompose)
         {
-            throw new NotImplementedException();
+            return new ResultNumberDecomposed()
+            {
+                EntryNumber = numberToDecompose.EntryNumber,
+                DividingNumbers = numberToDecompose.DividingNumbers
+            };
         }
     }
 }

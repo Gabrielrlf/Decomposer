@@ -1,3 +1,5 @@
+using Decomposer.Domain.Creator;
+using Decomposer.Domain.Factory;
 using Decomposer.Services;
 using Decomposer.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -28,6 +30,19 @@ namespace Decomposer.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Cors
+            services.AddCors(options =>
+                options.AddPolicy(
+                    "AllowAll", p =>
+                    {
+                        p.AllowAnyOrigin();
+                        p.AllowAnyMethod();
+                        p.AllowAnyHeader();
+                    }));
+
+            services.AddHttpContextAccessor();
+
+            services.AddScoped<NumberFactoryMethod, NumberFactory>();
             services.AddScoped<IDecomposeService, DecomposeService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -46,8 +61,8 @@ namespace Decomposer.Api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Decomposer.Api v1"));
             }
 
+            app.UseCors("AllowAll");
             app.UseHttpsRedirection();
-
             app.UseRouting();
 
             app.UseAuthorization();

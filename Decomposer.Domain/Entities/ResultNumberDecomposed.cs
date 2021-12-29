@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Decomposer.Domain.Entities
 {
-    public class ResultNumberDecomposed
+    public class ResultNumberDecomposed : BaseEntity
     {
-        public int EntryNumber { get; set; }
-        public List<int> DividingNumbers { get; set; }
+        [JsonPropertyName("Primos")]
         public List<int> PrimeDivisers { get; set; }
     }
 }

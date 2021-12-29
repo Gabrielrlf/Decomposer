@@ -11,5 +11,7 @@ namespace Decomposer.Services.Interfaces
     {
         bool IsCousinPrime(int numberA);
         List<int> DecompouseNumber(NumberToDecompose numberToDivider);
+
+        NumberToDecompose CreateDecomposeModel(int numberA, List<int> decomposer);
     }
 }

@@ -16,11 +16,10 @@ namespace Decomposer.Console
             var decomposeService = serviceProvider.GetService<IDecomposeService>();
             var numberFactory = serviceProvider.GetService<NumberFactoryMethod>();
 
-            System.Console.WriteLine("Inicializando a aplicação...");
-
             var numberToDecompose = numberFactory.MakeDecomposeNumber(decomposeConsoleService.WriterConsoleAndReturnNumber());
-
-            var dividingNumbers = decomposeService.DecompouseNumber(numberToDecompose);
+            decomposeService.DecompouseNumber(numberToDecompose);
+            var resultNumber = numberFactory.ReturnResult(numberToDecompose);
+            decomposeConsoleService.FinishApplication(resultNumber);
         }
 
         public static ServiceProvider ConfigureServices(IServiceCollection services)

@@ -8,15 +8,15 @@ namespace Decomposer.Domain.Entities
 {
     public class NumberToDecompose : BaseEntity
     {
-        public NumberToDecompose() 
+        public NumberToDecompose()
         {
             DividingNumbers = new List<int>();
         }
         public NumberToDecompose(int _numberA)
         {
-            NumberA = _numberA;
-            
+            EntryNumber = _numberA;
+
         }
-        public List<int> DividingNumbers { get; set; }
     }
+
 }
