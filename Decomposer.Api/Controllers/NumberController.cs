@@ -28,6 +28,7 @@ namespace Decomposer.Api.Controllers
             var decomposeNumber = _numberFactory.MakeDecomposeNumber(number);
             _dividerService.DecompouseNumber(decomposeNumber);
             var result = _numberFactory.ReturnResult(decomposeNumber);
+            _dividerService.CalculatedCousinPrime(result);
             return new JsonResult(Ok()) { ContentType = "json/Serialization", StatusCode = 200, Value = result };
         }
     }

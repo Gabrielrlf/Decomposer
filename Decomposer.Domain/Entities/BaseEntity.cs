@@ -19,7 +19,7 @@ namespace Decomposer.Domain.Entities
             Console.Write("Números divisores: ");
             DividingNumbers.ForEach(delegate (int a)
             {
-                Console.Write($"{a}, ");
+                Console.Write($"{a} ");
             });
 
         }

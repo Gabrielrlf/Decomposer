@@ -13,14 +13,26 @@ namespace Decomposer.Services
         private readonly DecomposerUtil decomposerUtil = new DecomposerUtil();
         private readonly NumberFactoryMethod _numberFactoryMethod;
         public DecomposeService(NumberFactoryMethod numberFactoryMethod) => _numberFactoryMethod = numberFactoryMethod;
-        public NumberToDecompose CreateDecomposeModel(int numberA)
-        {
-            return _numberFactoryMethod.MakeDecomposeNumber(numberA);
-        }
 
-        public NumberToDecompose CreateDecomposeModel(int numberA, List<int> decomposer)
+        public void CalculatedCousinPrime(ResultNumberDecomposed resultNumberDecomposed)
         {
-            throw new NotImplementedException();
+            for (int initialIndex = 0; initialIndex < resultNumberDecomposed.DividingNumbers.Count; initialIndex++)
+            {
+                int numberIndex = resultNumberDecomposed.DividingNumbers[initialIndex];
+                int amountPrime = 0;
+
+                if (decomposerUtil.ValidatedDivider(numberIndex, 2))
+                    continue;
+
+                for (int countingPrime = 1; countingPrime <= numberIndex; countingPrime++)
+                {
+                    if (numberIndex % countingPrime == 0)
+                        amountPrime++;
+                }
+
+                if (amountPrime == 2)
+                    resultNumberDecomposed.PrimeDivisers.Add(resultNumberDecomposed.DividingNumbers[initialIndex]);
+            }
         }
 
         public List<int> DecompouseNumber(NumberToDecompose numberToDecompose)
@@ -34,11 +46,6 @@ namespace Decomposer.Services
             }
 
             return numberToDecompose.DividingNumbers;
-        }
-
-        public bool IsCousinPrime(int numberA)
-        {
-            throw new NotImplementedException();
         }
     }
 }

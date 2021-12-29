@@ -9,6 +9,7 @@ namespace Decomposer.Services.Interfaces
 {
     public interface IDecomposeConsoleService 
     {
+        void ExecuteDecomposeConsole();
         int WriterConsoleAndReturnNumber();
 
         void FinishApplication(ResultNumberDecomposed resultNumber);

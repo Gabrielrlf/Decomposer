@@ -13,13 +13,7 @@ namespace Decomposer.Console
             ServiceCollection serviceCollection = new ServiceCollection();
             var serviceProvider = ConfigureServices(serviceCollection);
             var decomposeConsoleService = serviceProvider.GetService<IDecomposeConsoleService>();
-            var decomposeService = serviceProvider.GetService<IDecomposeService>();
-            var numberFactory = serviceProvider.GetService<NumberFactoryMethod>();
-
-            var numberToDecompose = numberFactory.MakeDecomposeNumber(decomposeConsoleService.WriterConsoleAndReturnNumber());
-            decomposeService.DecompouseNumber(numberToDecompose);
-            var resultNumber = numberFactory.ReturnResult(numberToDecompose);
-            decomposeConsoleService.FinishApplication(resultNumber);
+            decomposeConsoleService.ExecuteDecomposeConsole();
         }
 
         public static ServiceProvider ConfigureServices(IServiceCollection services)
