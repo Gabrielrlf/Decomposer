@@ -1,6 +1,7 @@
 ﻿using Decompose.Util;
 using Decomposer.Domain.Creator;
 using Decomposer.Domain.Entities;
+using Decomposer.Domain.Exception;
 using Decomposer.Domain.Factory;
 using Decomposer.Services.Interfaces;
 using System;
@@ -10,9 +11,9 @@ namespace Decomposer.Services
 {
     public class DecomposeService : IDecomposeService
     {
-        private readonly DecomposerUtil decomposerUtil = new DecomposerUtil();
-        private readonly NumberFactoryMethod _numberFactoryMethod;
-        public DecomposeService(NumberFactoryMethod numberFactoryMethod) => _numberFactoryMethod = numberFactoryMethod;
+        private readonly DecomposerUtil decomposerUtil = new();
+        private readonly NumberFactoryMethod _numberFactory;
+        public DecomposeService(NumberFactoryMethod numberFactoryMethod) => _numberFactory = numberFactoryMethod;
 
         public void CalculatedCousinPrime(ResultNumberDecomposed resultNumberDecomposed)
         {
@@ -21,9 +22,6 @@ namespace Decomposer.Services
                 int numberIndex = resultNumberDecomposed.DividingNumbers[initialIndex];
                 int amountPrime = 0;
 
-                if (decomposerUtil.ValidatedDivider(numberIndex, 2))
-                    continue;
-
                 for (int countingPrime = 1; countingPrime <= numberIndex; countingPrime++)
                 {
                     if (numberIndex % countingPrime == 0)
@@ -31,21 +29,35 @@ namespace Decomposer.Services
                 }
 
                 if (amountPrime == 2)
-                    resultNumberDecomposed.PrimeDivisers.Add(resultNumberDecomposed.DividingNumbers[initialIndex]);
+                    resultNumberDecomposed.CousinDivisers.Add(resultNumberDecomposed.DividingNumbers[initialIndex]);
             }
         }
 
-        public List<int> DecompouseNumber(NumberToDecompose numberToDecompose)
+        public void DecompouseNumber(NumberToDecompose numberToDecompose)
         {
             for (int i = 1; i <= numberToDecompose.EntryNumber; i++)
             {
                 int resultDivider = numberToDecompose.EntryNumber / i;
 
-                if (decomposerUtil.ValidatedDivider(numberToDecompose.EntryNumber, i))
+                if (decomposerUtil.ValidateDivider(numberToDecompose.EntryNumber, i))
                     numberToDecompose.DividingNumbers.Add(resultDivider);
             }
+        }
 
-            return numberToDecompose.DividingNumbers;
+        public ResultNumberDecomposed MakeOperation(int number)
+        {
+            try
+            {
+                var decomposeNumber = _numberFactory.MakeDecomposeNumber(number);
+                DecompouseNumber(decomposeNumber);
+                var result = _numberFactory.ReturnResult(decomposeNumber);
+                CalculatedCousinPrime(result);
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw new NumberException(e.Message);
+            }
         }
     }
 }

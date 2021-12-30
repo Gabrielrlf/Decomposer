@@ -1,5 +1,6 @@
 ﻿using Decomposer.Domain.Creator;
 using Decomposer.Domain.Entities;
+using Decomposer.Domain.Exception;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +13,13 @@ namespace Decomposer.Domain.Factory
     {
         protected override NumberToDecompose CreateNumberToDecompose(int numberA)
         {
-            return new NumberToDecompose()
-            {
-                EntryNumber = numberA
-            };
+            return new NumberToDecompose(numberA);
         }
-
         protected override ResultNumberDecomposed ReturnDecomposedNumber(NumberToDecompose numberToDecompose)
         {
+            if (numberToDecompose.EntryNumber == 0)
+                throw new NumberException("Não é possível dividir por 0");
+
             return new ResultNumberDecomposed()
             {
                 EntryNumber = numberToDecompose.EntryNumber,

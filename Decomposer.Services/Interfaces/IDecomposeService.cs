@@ -9,8 +9,9 @@ namespace Decomposer.Services.Interfaces
 {
     public interface IDecomposeService
     {
+        ResultNumberDecomposed MakeOperation(int number);
         void CalculatedCousinPrime(ResultNumberDecomposed resultNumberDecomposed);
 
-        List<int> DecompouseNumber(NumberToDecompose numberToDivider);
+        void DecompouseNumber(NumberToDecompose numberToDivider);
     }
 }

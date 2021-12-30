@@ -14,22 +14,52 @@ namespace Decomposer.Api.Controllers
     [Route("api/[controller]")]
     public class NumberController : ControllerBase
     {
-        private readonly IDecomposeService _dividerService;
+        private readonly IDecomposeService _decomposeService;
         private readonly NumberFactoryMethod _numberFactory;
         public NumberController(IDecomposeService dividerService, NumberFactoryMethod numberFactory)
         {
-            _dividerService = dividerService;
+            _decomposeService = dividerService;
             _numberFactory = numberFactory;
         }
 
-        [HttpGet, Route("{number}")]
-        public IActionResult Get(int number)
+        /// <summary>
+        /// Decompõe um número passado via query string.
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        [HttpGet("{Num}")]
+        public IActionResult DecomposerNumber(int num)
         {
-            var decomposeNumber = _numberFactory.MakeDecomposeNumber(number);
-            _dividerService.DecompouseNumber(decomposeNumber);
-            var result = _numberFactory.ReturnResult(decomposeNumber);
-            _dividerService.CalculatedCousinPrime(result);
-            return new JsonResult(Ok()) { ContentType = "json/Serialization", StatusCode = 200, Value = result };
+            try
+            {
+                var result = _decomposeService.MakeOperation(num);
+                return new JsonResult(Ok()) { ContentType = "application/json", StatusCode = 200, Value = result };
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
+
+
+        /// <summary>
+        /// Decompõe múltiplos números passados via json.
+        /// </summary>
+        /// <param name="numbers"></param>
+        /// <returns></returns>
+        [HttpPost("MultiplesNumber")]
+        public IActionResult DecomposerMultiplesNumber([FromBody] List<int> numbers)
+        {
+            try
+            {
+                List<ResultNumberDecomposed> listResult = new();
+                numbers.ForEach(x => listResult.Add(_decomposeService.MakeOperation(x)));
+                return new JsonResult(Ok()) { ContentType = "application/json", StatusCode = 200, Value = listResult };
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
         }
     }
 }

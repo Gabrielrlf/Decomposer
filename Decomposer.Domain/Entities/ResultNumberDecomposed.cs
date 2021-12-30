@@ -11,14 +11,16 @@ namespace Decomposer.Domain.Entities
     {
         public ResultNumberDecomposed()
         {
-            PrimeDivisers = new List<int>();
+            CousinDivisers = new();
         }
+
         [JsonPropertyName("Primos")]
-        public List<int> PrimeDivisers { get; set; }
+        public List<int> CousinDivisers { get; set; }
+
         public void PrintPrimeDivisers()
         {
             Console.Write("\nNúmeros primos: ");
-            PrimeDivisers.ForEach(delegate (int a)
+            CousinDivisers.ForEach(delegate (int a)
             {
                 Console.Write($"{a} ");
             });

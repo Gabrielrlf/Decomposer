@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Decomposer.Domain.Exception;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,12 +11,14 @@ namespace Decomposer.Domain.Entities
     {
         public NumberToDecompose()
         {
-            DividingNumbers = new List<int>();
+            DividingNumbers = new();
         }
         public NumberToDecompose(int _numberA)
         {
-            EntryNumber = _numberA;
+            if (_numberA == 0)
+                throw new NumberException("Não é possível dividir por 0");
 
+            EntryNumber = _numberA;
         }
     }
 
