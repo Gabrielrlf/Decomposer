@@ -37,7 +37,7 @@ namespace Decomposer.Api.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(e);
+                return new JsonResult(BadRequest(e)) { StatusCode = 500, Value = e.Message };
             }
         }
 
@@ -58,7 +58,7 @@ namespace Decomposer.Api.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(e);
+                return new JsonResult(BadRequest(e)) { StatusCode = 500, Value = e.Message};
             }
         }
     }
