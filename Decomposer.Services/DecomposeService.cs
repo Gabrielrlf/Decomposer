@@ -48,6 +48,9 @@ namespace Decomposer.Services
         {
             try
             {
+                if (number == 0)
+                    throw new NumberException("Não é possível dividir por 0");
+
                 var decomposeNumber = _numberFactory.MakeDecomposeNumber(number);
                 DecompouseNumber(decomposeNumber);
                 var result = _numberFactory.ReturnResult(decomposeNumber);

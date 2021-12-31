@@ -11,7 +11,6 @@ namespace Decomposer.Domain.Entities
     {
         public NumberToDecompose()
         {
-            DividingNumbers = new();
         }
         public NumberToDecompose(int _numberA)
         {

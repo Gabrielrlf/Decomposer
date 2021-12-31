@@ -9,6 +9,10 @@ namespace Decomposer.Domain.Entities
 {
     public class BaseEntity
     {
+        public BaseEntity()
+        {
+            DividingNumbers = new();
+        }
         [JsonPropertyName("Entrada")]
         public int EntryNumber { get; set; }
         [JsonPropertyName("Divisores")]
